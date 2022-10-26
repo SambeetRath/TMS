@@ -1,11 +1,12 @@
 
 #include <menu.h>
 
-struct user{
+struct login{
     	char username[10];
     	char password[10];
 }*pUser;
 
+	
 
 int userlogin(void)
 {
@@ -13,9 +14,10 @@ int userlogin(void)
     	FILE *fp;
     	char uName[10], pwd[10];int i;char c;
 	int u,p;
-    	pUser=(struct user *)malloc(sizeof(struct user));
+    	pUser=(struct login *)malloc(sizeof(struct login));
 	
-    	printf("1. Login Through An Existing Account\n2. Create New account\n3. To Exit\n");
+    	printf("\t1. Login Through An Existing Account\n\t2. Create New account\n\t3. To Exit\n");
+    	printf("\n\t ENTER Choice : ");
     	scanf("%d",& i);
     	
     		
@@ -30,7 +32,7 @@ int userlogin(void)
 		        	if (( fp=fopen("user.dat", "w+")) == NULL) 
 		        	{
 		            		printf ("Could not open file\n");
-		            		exit ( 1);
+		            		exit (1);
 		        	}
 		    	}
 		    	
@@ -39,7 +41,7 @@ int userlogin(void)
 		    	scanf("%9s",uName);
 		    	printf("Password: ");
 		    	scanf("%9s",pwd);
-		    	while ( fread (pUser, sizeof(struct user), 1, fp) == 1) 
+		    	while ( fread (pUser, sizeof(struct login), 1, fp) == 1) 
 		    	{
 		        	if( strcmp ( pUser->username, uName) == 0) 
 		        	{
@@ -77,7 +79,7 @@ int userlogin(void)
 		        		scanf("%9s",pUser->username);
 		        		printf("Choose A Password: ");
 		        		scanf("%9s",pUser->password);
-		        		fwrite (pUser, sizeof(struct user), 1, fp);
+		        		fwrite (pUser, sizeof(struct login), 1, fp);
 		        		printf("Add another account? (Y/N): ");
 		        		scanf(" %c",&c);/*skip leading whitespace*/
 		    		}while(c=='Y'||c=='y');
@@ -91,12 +93,14 @@ int userlogin(void)
 	    	}
     free (pUser);/*free allocated memory*/
     fclose(fp);
-    
+    return 0;
 }   
    
 int main()
 {
-    	int x=userlogin ( );
+	
+	
+    	int x=userlogin();
     	if(x==1)
     	{
     		execMenu();

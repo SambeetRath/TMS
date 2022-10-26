@@ -1,6 +1,8 @@
+#include <menu.h>
 #include <user.h>
 #include <task.h>
 #include <assignment.h>
+
 
 void assignment()
 {
@@ -75,7 +77,7 @@ void assignment()
     	fclose(fpt);
 
     	FILE* fp = fopen("assign.csv", "w+");
-    	int i,j,k,l;
+    	int i,j;
 
     	for(i=0;i<recu;i++)
     	{
@@ -102,32 +104,32 @@ void display_usertask(int taskid)
         	printf("Can't open file\n");
         	exit(0);
     	}
-	else
-	{
-    		assign a[100];
-    		int r=0;
-    		int rec=0;
+	
+	
+    	assign a[100];
+    	int r=0;
+    	int rec=0;
 
-		do
+	do
+	{
+		 r=fscanf(fp,"%d,%[^,],%[^,],%d,%[^,],%s\n", &a[rec].uid, a[rec].uname, a[rec].des, &a[rec].tid, a[rec].tname,a[rec].dline);
+		if(r == 6)
 		{
-		 	r=fscanf(fp,"%d,%[^,],%[^,],%d,%[^,],%s\n", &a[rec].uid, a[rec].uname, a[rec].des, &a[rec].tid, a[rec].tname,a[rec].dline);
-			if(r == 6)
-			{
-				rec++;
-			}
-			/*printf("%d",r);*/
-			if(r != 6 && !feof(fp))
-			{
-				printf("\nError in Format\n");
-				break;
-			}
-			if(ferror(fp))
-			{
-				printf("\nError in Reading\n");
-				break;
-			}
-		}while(!feof(fp));
-	}
+			rec++;
+		}
+		/*printf("%d",r);*/
+		if(r != 6 && !feof(fp))
+		{
+			printf("\nError in Format\n");
+			break;
+		}
+		if(ferror(fp))
+		{
+			printf("\nError in Reading\n");
+			break;
+		}
+	}while(!feof(fp));
+	
     	printf("\nRecords Read. %d\n",rec);
     	
     	int i;

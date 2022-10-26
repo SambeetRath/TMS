@@ -1,7 +1,9 @@
-
+#include <menu.h>
 #include <task.h>
+
 void create_task(int n)
 {
+	task *t;
     	t=(task*)calloc(n, sizeof(task));
     	FILE* fp = fopen("task.csv", "a+");
  	int j;
@@ -27,7 +29,6 @@ void create_task(int n)
 		 
 		    	/* Saving data in file */
 		    	int i,dt=1;
-		    	
 		    	
 				for(i=0;i<10;i++)
 				{
@@ -84,55 +85,73 @@ void read_task()
 
 void search_task(int tid)
 {
-	
+	int i,find=-1;
+	task ta[100];
+	int r=0;
+    	int rec=0;
 	FILE* fp = fopen("task.csv", "r");
- 
+ 	
     	if (!fp) 
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
         	exit(0);
     	}
-    	
-    		task ta[100];
-    		int r=0;
-    		int rec=0;     
-		
-		do
+    	     
+	do
+	{
+	 	r=fscanf(fp,"%d,%[^,],%[^,],%s\n",&ta[rec].task_id, ta[rec].task_name,ta[rec].description,ta[rec].deadline);
+		if(r == 4)
 		{
-		 	r=fscanf(fp,"%d,%[^,],%[^,],%s\n",&ta[rec].task_id, ta[rec].task_name,ta[rec].description,ta[rec].deadline);
-			if(r == 4)
-			{
-				rec++;
-			} 
-			/*printf("%d",r);*/	
-			if(r != 4 && !feof(fp))
-			{
-				printf("\nError in Format\n");
-				break;
-			}
-			if(ferror(fp))
-			{
-				printf("\nError in Reading\n");
-				break;
-			}
-		}while(!feof(fp));
+			rec++;
+		} 
+		/*printf("%d",r);*/	
+		if(r != 4 && !feof(fp))
+		{
+			printf("\nError in Format\n");
+			break;
+		}
+		if(ferror(fp))
+		{
+			printf("\nError in Reading\n");
+			break;
+		}
+	}while(!feof(fp));
     	
     	fclose(fp);
-    	int i;
+    	
     	printf("\nRecords Read. %d\n",rec);
+    	
+    	
     	for(i=0;i<rec;i++)
     	{
     		if(ta[i].task_id==tid)
     		{
-    			printf("%d,%s,%s,%s\n", ta[i].task_id, ta[i].task_name,ta[i].description,ta[i].deadline);
+    			printf("\nMatch found at position %d",(i+1));
+    			printf("\n\tTASK ID\tTASK NAME\tDESCRIPTION\tDEADLINE\n");
+    			printf("\n\t%d\t%s\t%s\t%s\n", ta[i].task_id, ta[i].task_name,ta[i].description,ta[i].deadline);
     			printf("\n");
+    			find++;
     		}
+    	}
+    	if(find==-1)
+    	{
+    		printf("\nINVALID TASK ID\n");
     	}
 }
 
 void update_task(int tid)
 {
+	task ta[100];
+    	int r=0;
+    	int rec=0;     
+	int find=-1;
+	
+	int i,ttid;
+    	char ttname[50];
+	char tdes[20];
+	char tdeadl[14];
+	
 	FILE* fp = fopen("task.csv", "r");
  	FILE* fpt = fopen("temptask.csv", "a+");
  	
@@ -146,10 +165,6 @@ void update_task(int tid)
         	exit(0);
     	}
     	
-    	task ta[100];
-    	int r=0;
-    	int rec=0;     
-	int find=-1;	
 	do
 	{
 		 r=fscanf(fp,"%d,%[^,],%[^,],%s\n",&ta[rec].task_id, ta[rec].task_name,ta[rec].description,ta[rec].deadline);
@@ -171,11 +186,6 @@ void update_task(int tid)
 		}
 	}while(!feof(fp));
     	
-    	
-    	int i,ttid;
-    	char ttname[50];
-	char tdes[20];
-	char tdeadl[14];
     	printf("\nRecords Read. %d\n",rec);
     	for(i=0;i<rec;i++)
     	{
@@ -223,14 +233,23 @@ void update_task(int tid)
     		rename(tfname,fname);
     	}
     	
-    	
-    		remove(tfname);
+    	remove(tfname);
+    	if(find!=-1)
+    	{
+    		printf("\nRECORD UPDATED SUCCESSFULLY\n");
+    	}
     	
 }
 
 
 void delete_task(int tid)
 {
+	int i;
+    	task ta[100];
+    	int r=0;
+    	int rec=0;     
+	int find=-1;
+	
 	FILE* fp = fopen("task.csv", "r");
  	FILE* fpt = fopen("temptask.csv", "a+");
  	
@@ -243,11 +262,7 @@ void delete_task(int tid)
         	printf("Can't open file\n");
         	exit(0);
     	}
-   
-    	task ta[100];
-    	int r=0;
-    	int rec=0;     
-	int find=-1;	
+    		
 	do
 	{
 		 r=fscanf(fp,"%d,%[^,],%[^,],%s\n",&ta[rec].task_id, ta[rec].task_name,ta[rec].description,ta[rec].deadline);
@@ -269,7 +284,7 @@ void delete_task(int tid)
 	}while(!feof(fp));
     	
     	
-    	int i;
+    	
     	printf("\nRecords Read. %d\n",rec);
     	for(i=0;i<rec;i++)
     	{
@@ -303,5 +318,10 @@ void delete_task(int tid)
 	{
 		remove(temp_filename);
 	}
+	
+	if(find!=-1)
+    	{
+    		printf("\nRECORD DELETED SUCCESSFULLY\n");
+    	}
 }
 

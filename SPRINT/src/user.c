@@ -1,15 +1,15 @@
-
+#include <menu.h>
 #include <user.h>
 
 
 void create_user(int n)
 {
+	user *u;
  	u=(user*)calloc(n, sizeof(user));
     	FILE* fp = fopen("user.csv", "a+");
  	int j;
     	if (!fp)
         printf("Can't open file\n");
- 
     	else 
     	{       
     		for(j=0;j<n;j++)
@@ -26,7 +26,7 @@ void create_user(int n)
 		    
 		 
 		    	/* Saving data in file */
-		    	int i,un=1;
+		    	int un=1;
 		    	
 		    	
 				if(isupper(u[j].user_name[0])==0 && isupper(u[j].user_name[sizeof(u[j].user_name)])==0)
@@ -47,16 +47,12 @@ void create_user(int n)
 		
     	}
     	printf("\nUSER TABLE SUCCESSFULLY CREATED\n");
-    	
 }
-
-
 
 void read_user()
 {
 
 	FILE* fp = fopen("user.csv", "r");
- 	char buffer[1024];
  
     	if (!fp) 
     	{
@@ -67,7 +63,7 @@ void read_user()
     	else
     	{        
 		char buffer[1024];
- 		printf("USER ID\tUSER NAME\tDESIGNATION\n");
+ 		printf("\tUSER ID\t\tUSER NAME\tDESIGNATION\n\t");
 		while (fgets(buffer,1024, fp)) 
 		{
 		    	char* value = strtok(buffer, ",");
@@ -84,57 +80,71 @@ void read_user()
 
 void search_user(int uid)
 {
-	
+	int i,find=-1;
 	FILE* fp = fopen("user.csv", "r");
- 
     	if (!fp) 
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
         	exit(0);
     	}
-    	else
-    	{
     		user us[100];
     		int r=0;
     		int rec=0;     
-		
-		do
+	do
+	{
+	 	r=fscanf(fp,"%d,%[^,],%s\n",&us[rec].user_id, us[rec].user_name,us[rec].designation);
+		if(r == 3)
 		{
-		 	r=fscanf(fp,"%d,%[^,],%s\n",&us[rec].user_id, us[rec].user_name,us[rec].designation);
-			if(r == 3)
-			{
-				rec++;
-			} 
-			/*printf("%d",r);*/	
-			if(r != 3 && !feof(fp))
-			{
-				printf("\nError in Format\n");
-				break;
-			}
-			if(ferror(fp))
-			{
-				printf("\nError in Reading\n");
-				break;
-			}
-		}while(!feof(fp));
-    	}
+			rec++;
+		} 
+		/*printf("%d",r);*/	
+		if(r != 3 && !feof(fp))
+		{
+			printf("\nError in Format\n");
+			break;
+		}
+		if(ferror(fp))
+		{
+			printf("\nError in Reading\n");
+			break;
+		}
+	}while(!feof(fp));
+    	
     	fclose(fp);
-    	int i;
+    	
     	printf("\nRecords Read. %d\n",rec);
+    	
+    	if(find!=-1)
+    	{
+    		printf("\nRECORD FOUND SUCCESSFULLY\n");
+    	}
+    	
     	for(i=0;i<rec;i++)
     	{
     		if(us[i].user_id==uid)
     		{
-    			printf("%d,%s,%s\n", us[i].user_id,us[i].user_name,us[i].designation);
+    			printf("\nMatch found at position %d",(i+1));
+    			printf("\n\tUSER ID\tUSER NAME\tDESIGNATION\n");
+    			printf("\n\t\%d\t%s\t%s\n", us[i].user_id,us[i].user_name,us[i].designation);
     			printf("\n");
+    			find++;
     		}
+    	}
+    	if(find==-1)
+    	{
+    		printf("\nINVALID USER ID\n");
     	}
 }
 
-
 void delete_user(int uid)
 {
+	user us[100];
+    	int r=0;
+    	int rec=0;     
+	int find=-1;
+	int i;
+	
 	FILE* fp = fopen("user.csv", "r");
  	FILE* fpt = fopen("tempuser.csv", "a+");
  	
@@ -147,11 +157,7 @@ void delete_user(int uid)
         	printf("Can't open file\n");
         	exit(0);
     	}
-   
-    	user us[100];
-    	int r=0;
-    	int rec=0;     
-	int find=-1;	
+
 	do
 	{
 		r=fscanf(fp,"%d,%[^,],%s\n",&us[rec].user_id, us[rec].user_name,us[rec].designation);
@@ -172,8 +178,6 @@ void delete_user(int uid)
 		}
 	}while(!feof(fp));
     	
-    	
-    	int i;
     	printf("\nRecords Read. %d\n",rec);
     	for(i=0;i<rec;i++)
     	{
@@ -183,6 +187,7 @@ void delete_user(int uid)
     			printf("%d",find);
     		}
     	}
+    	
     	for(i=0;i<rec;i++)
     	{
     		if(i!=find)
@@ -190,11 +195,17 @@ void delete_user(int uid)
     			fprintf(fpt, "%d,%s,%s\n", us[i].user_id, us[i].user_name,us[i].designation );
     		}
     	}
+    	
     	fclose(fp);
     	fclose(fpt);
     	
     	remove(filename);
     	rename(temp_filename,filename);
+    	
+    	if(find!=-1)
+    	{
+    		printf("\nRECORD DELETED SUCCESSFULLY\n");
+    	}
 }
 
 void update_user(int uid)
@@ -236,7 +247,6 @@ void update_user(int uid)
 		}
 	}while(!feof(fp));
     	
-    	
     	int i,tuid;
     	char tuname[50];
 	char tdes[20];
@@ -274,5 +284,10 @@ void update_user(int uid)
     	
     	remove(filename);
     	rename(temp_filename,filename);
+    	
+    	if(find!=-1)
+    	{
+    		printf("\nRECORD UPDATED SUCCESSFULLY\n");
+    	}
 }
 

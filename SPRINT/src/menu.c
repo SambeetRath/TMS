@@ -1,19 +1,20 @@
 
 #include <menu.h>
 
-
 int menu1()
 {
       int choice=0;
-      char menu[100] = "\n\tPlease enter your choice,\n\t1. CREATE/APPEND USER Table\t2. CREATE/APPEND TASK Table\n\t3. READ USER Table \n\t4. READ TASK Table \n\t5. UPDATE records from USER Table \n\t6. UPDATE records from TASK Table \n\t7. DELETE records from USER Table \n\t8. DELETE records from TASK Table \n\t9. SEARCH records from USER Table \n\t10. SEARCH records from TASK Table \n\t11. To Assign Task to User \n\t12. Display assigned User of a Task \n\t0. EXIT\n\t Choice: ";
-      printf("%s",menu);
+      printf("\n\t*************************************************************\t\n");
+      printf("\n\t*****************************MENU****************************\t\n");
+      printf( "\n\tPlease enter your choice,\n\t1. CREATE/APPEND USER Table\n\t2. CREATE/APPEND TASK Table\n\t3. READ USER Table \n\t4. READ TASK Table \n\t5. UPDATE records from USER Table \n\t6. UPDATE records from TASK Table \n\t7. DELETE records from USER Table \n\t8. DELETE records from TASK Table \n\t9. SEARCH records from USER Table \n\t10. SEARCH records from TASK Table \n\t11. To Assign Task to User \n\t12. Display assigned User of a Task \n\t0. EXIT\n\t Choice: ");
       scanf("%d",&choice);
-
+      
       return choice;
 }
 
 void execMenu()
 {
+	int uid,tid;
 	while(1)
 	{
 		switch(menu1())
@@ -23,7 +24,6 @@ void execMenu()
 			printf("\nEnter the number of records you want to enter : ");
 			scanf("%d",&n);
 			create_user(n);
-		        printf("");
 		        break;
 		case 2:
 			int m;
@@ -38,52 +38,53 @@ void execMenu()
 			read_task();
 		        break;
 		case 5:
-			int uid;
+			
 			printf("\nEnter the USER Id to update record : ");
 			scanf("%d",&uid);
-			update_user();
+			update_user(uid);
 		        
 		        break;
 		case 6:
-			int tid;
+			
 			printf("\nEnter the TASK Id to update record : ");
 			scanf("%d",&tid);
-			update_user();
+			update_task(tid);
 		        break;
 		case 7:
-			int uid;
+			
 			printf("\nEnter the USER Id to DELETE record : ");
 			scanf("%d",&uid);
-			delete_user();
+			delete_user(uid);
 			break;
 		case 8:
-			int tid;
+			
 			printf("\nEnter the TASK Id to DELETE record : ");
-			scanf("%d",&uid);
-			delete_user();
+			scanf("%d",&tid);
+			delete_task(tid);
 			break;
 		case 9:
-			int uid;
-			printf("\nEnter the USER Id to DELETE record : ");
+			
+			printf("\nEnter the USER Id to SEARCH record : ");
 			scanf("%d",&uid);
-			search_user();
+			search_user(uid);
 			break;
 		case 10:
-			int tid;
-			printf("\nEnter the TASK Id to DELETE record : ");
-			scanf("%d",&uid);
-			search_user();
+			
+			printf("\nEnter the TASK Id to SEARCH record : ");
+			scanf("%d",&tid);
+			search_task(tid);
 			break;
 		case 11:
 			assignment();
 			break;
 		case 12:
 			int taskid;
-			printf("\nEnter the TASK Id to update record : ");
+			printf("\nEnter the TASK Id to View assigned users to the task : ");
 			scanf("%d",&taskid);
 			display_usertask(taskid);
 			break;
 		case 0:
+			printf("\n\t*************************************************************\t\n");
 			exit(1);
 
 		default:
