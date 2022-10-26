@@ -36,10 +36,10 @@ int userlogin(void)
 		        	}
 		    	}
 		    	
-	    	    	printf("\nENTER Username and Password\n");
-		    	printf("Username: ");
+	    	    	printf("\n\tENTER Username and Password\n");
+		    	printf("\tUsername: ");
 		    	scanf("%9s",uName);
-		    	printf("Password: ");
+		    	printf("\tPassword: ");
 		    	scanf("%9s",pwd);
 		    	while ( fread (pUser, sizeof(struct login), 1, fp) == 1) 
 		    	{
@@ -54,12 +54,12 @@ int userlogin(void)
 		    	}
 		    	if(u==1 && p==1)
 		    	{
-		    		printf("\n   LOGIN SUCCESSFUL \n");
+		    		printf("\n\tLOGIN SUCCESSFUL \n");
 		    		return 1;
 		    	}
 		    	else
 		    	{
-		    		printf("   LOGIN UNSUCCESSFUL\n");
+		    		printf("\tLOGIN UNSUCCESSFUL\n");
 		    		return 0;
 		    	}
 		    	break;
@@ -75,15 +75,15 @@ int userlogin(void)
 		                			exit (1);
 		            			}
 		        		}
-		        		printf("Choose A Username: ");
+		        		printf("\tChoose A Username: ");
 		        		scanf("%9s",pUser->username);
-		        		printf("Choose A Password: ");
+		        		printf("\tChoose A Password: ");
 		        		scanf("%9s",pUser->password);
 		        		fwrite (pUser, sizeof(struct login), 1, fp);
-		        		printf("Add another account? (Y/N): ");
+		        		printf("\tAdd another account? (Y/N): ");
 		        		scanf(" %c",&c);/*skip leading whitespace*/
 		    		}while(c=='Y'||c=='y');
-		    		printf("SIGNUP SUCCESSFUL\nPLEASE REOPEN THE APPLICATION");
+		    		printf("\tSIGNUP SUCCESSFUL\n\tPLEASE REOPEN THE APPLICATION");
 		    		break;
 		    		
 		    	case 3:
