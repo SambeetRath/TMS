@@ -81,6 +81,9 @@ void read_user()
 void search_user(int uid)
 {
 	int i,find=-1;
+	user us[100];
+    	int r=0;
+    	int rec=0;
 	FILE* fp = fopen("user.csv", "r");
     	if (!fp) 
     	{
@@ -88,9 +91,7 @@ void search_user(int uid)
         	printf("Can't open file\n");
         	exit(0);
     	}
-    		user us[100];
-    		int r=0;
-    		int rec=0;     
+    		     
 	do
 	{
 	 	r=fscanf(fp,"%d,%[^,],%s\n",&us[rec].user_id, us[rec].user_name,us[rec].designation);
@@ -114,11 +115,6 @@ void search_user(int uid)
     	fclose(fp);
     	
     	printf("\nRecords Read. %d\n",rec);
-    	
-    	if(find!=-1)
-    	{
-    		printf("\nRECORD FOUND SUCCESSFULLY\n");
-    	}
     	
     	for(i=0;i<rec;i++)
     	{
@@ -206,10 +202,22 @@ void delete_user(int uid)
     	{
     		printf("\nRECORD DELETED SUCCESSFULLY\n");
     	}
+    	else
+    	{
+    		printf("\nINVALID INPUT\n");
+    	}
 }
 
 void update_user(int uid)
 {
+	user us[100];
+    	int r=0;
+    	int rec=0;     
+	int find=-1;
+	int i,tuid;
+    	char tuname[50];
+	char tdes[20];
+	
 	FILE* fp = fopen("user.csv", "r");
  	FILE* fpt = fopen("tempuser.csv", "a+");
  	
@@ -222,11 +230,7 @@ void update_user(int uid)
         	printf("Can't open file\n");
         	exit(0);
     	}
-    	
-    	user us[100];
-    	int r=0;
-    	int rec=0;     
-	int find=-1;	
+    		
 	do
 	{
 		r=fscanf(fp,"%d,%[^,],%s\n",&us[rec].user_id, us[rec].user_name,us[rec].designation);
@@ -247,9 +251,6 @@ void update_user(int uid)
 		}
 	}while(!feof(fp));
     	
-    	int i,tuid;
-    	char tuname[50];
-	char tdes[20];
     	printf("\nRecords Read. %d\n",rec);
     	for(i=0;i<rec;i++)
     	{
@@ -288,6 +289,10 @@ void update_user(int uid)
     	if(find!=-1)
     	{
     		printf("\nRECORD UPDATED SUCCESSFULLY\n");
+    	}
+    	else
+    	{
+    		printf("\nINVALID INPUT\n");
     	}
 }
 

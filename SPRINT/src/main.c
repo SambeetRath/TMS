@@ -1,4 +1,3 @@
-
 #include <menu.h>
 
 struct login{
@@ -6,25 +5,24 @@ struct login{
     	char password[10];
 }*pUser;
 
-	
-
 int userlogin(void)
 {
-	
     	FILE *fp;
-    	char uName[10], pwd[10];int i;char c;
+    	char uName[10], pwd[10];
+    	int i;
+    	char c;
 	int u,p;
+	int defined_pin=1234;
+	int pin;
     	pUser=(struct login *)malloc(sizeof(struct login));
 	
     	printf("\t1. Login Through An Existing Account\n\t2. Create New account\n\t3. To Exit\n");
     	printf("\n\t ENTER Choice : ");
     	scanf("%d",& i);
     	
-    		
-	    	switch(i)
-	    	{
-	    	    case 1:
-	    	    
+	switch(i)
+	{
+		case 1:
 	    	    	u=0;
 	    	    	p=0;
 		    	if ( ( fp=fopen("user.dat", "r+")) == NULL) 
@@ -64,42 +62,49 @@ int userlogin(void)
 		    	}
 		    	break;
 
-			case 2:
-		    		do
-		    		{
-		        		if ( ( fp=fopen("user.dat", "a+")) == NULL) 
-		        		{
-		            			if ( ( fp=fopen("user.dat", "w+")) == NULL) 
-		            			{
-		                			printf ("Could not open file\n");
-		                			exit (1);
-		            			}
-		        		}
-		        		printf("\tChoose A Username: ");
-		        		scanf("%9s",pUser->username);
-		        		printf("\tChoose A Password: ");
-		        		scanf("%9s",pUser->password);
-		        		fwrite (pUser, sizeof(struct login), 1, fp);
-		        		printf("\tAdd another account? (Y/N): ");
-		        		scanf(" %c",&c);/*skip leading whitespace*/
-		    		}while(c=='Y'||c=='y');
-		    		printf("\tSIGNUP SUCCESSFUL\n\tPLEASE REOPEN THE APPLICATION");
-		    		break;
+		case 2:
+			printf("\tENTER PIN TO CONTINUE : ");
+		        scanf("%d",&pin);
+		        if(pin==defined_pin)
+		        {
+			    	do
+			    	{
+					if ( ( fp=fopen("user.dat", "a+")) == NULL) 
+					{
+				    		if ( ( fp=fopen("user.dat", "w+")) == NULL) 
+				    		{
+				        		printf ("Could not open file\n");
+				        		exit (1);
+				    		}
+					}
+					printf("\tChoose A Username: ");
+					scanf("%9s",pUser->username);
+					printf("\tChoose A Password: ");
+					scanf("%9s",pUser->password);
+					fwrite (pUser, sizeof(struct login), 1, fp);
+					printf("\tAdd another account? (Y/N): ");
+					scanf(" %c",&c);/*skip leading whitespace*/
+			    	}while(c=='Y'||c=='y');
+			    	printf("\tSIGNUP SUCCESSFUL\n\tPLEASE REOPEN THE APPLICATION");
+		    	}
+		    	else
+		    	{
+		    		printf("\n***INVALID PIN***\n");
+		    	}
+		    	break;
 		    		
 		    	case 3:
-		    	exit(1);
+		    		exit(1);
 		    	default:
 		    		printf("Wrong input");
 	    	}
-    free (pUser);/*free allocated memory*/
-    fclose(fp);
-    return 0;
+	free (pUser);/*free allocated memory*/
+	fclose(fp);
+    	return 0;
 }   
    
 int main()
 {
-	
-	
     	int x=userlogin();
     	if(x==1)
     	{

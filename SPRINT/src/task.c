@@ -30,15 +30,15 @@ void create_task(int n)
 		    	/* Saving data in file */
 		    	int i,dt=1;
 		    	
-				for(i=0;i<10;i++)
+			for(i=0;i<10;i++)
+			{
+				if(i!=2 && i!=5)
 				{
-					if(i!=2 && i!=5)
-					{
-						if(isdigit(t[j].deadline[i])==0)
-						dt=0;
+					if(isdigit(t[j].deadline[i])==0)
+					dt=0;
 						
-					}
-				}    	
+				}
+			}    	
 		    	
 		    	if(t[j].task_id<10000 && t[j].task_id>999 && dt==1)
 		    	{
@@ -238,7 +238,10 @@ void update_task(int tid)
     	{
     		printf("\nRECORD UPDATED SUCCESSFULLY\n");
     	}
-    	
+    	else
+    	{
+    		printf("\nINVALID INPUT\n");
+    	}
 }
 
 
@@ -322,6 +325,10 @@ void delete_task(int tid)
 	if(find!=-1)
     	{
     		printf("\nRECORD DELETED SUCCESSFULLY\n");
+    	}
+    	else
+    	{
+    		printf("\nINVALID INPUT\n");
     	}
 }
 

@@ -97,6 +97,11 @@ void assignment()
 
 void display_usertask(int taskid)
 {
+	int i;
+	assign a[100];
+    	int r=0;
+    	int rec=0;
+    	
     	FILE* fp = fopen("assign.csv", "r");
     	if (!fp)
     	{
@@ -104,11 +109,6 @@ void display_usertask(int taskid)
         	printf("Can't open file\n");
         	exit(0);
     	}
-	
-	
-    	assign a[100];
-    	int r=0;
-    	int rec=0;
 
 	do
 	{
@@ -132,8 +132,6 @@ void display_usertask(int taskid)
 	
     	printf("\nRecords Read. %d\n",rec);
     	
-    	int i;
-    	
     	for(i=0;i<rec;i++)
     	{
     		if(a[i].tid==taskid)
@@ -148,5 +146,56 @@ void display_usertask(int taskid)
     		if(a[i].tid==taskid)
     		printf("\t%d\t%s\t\t%s\n",a[i].uid,a[i].uname,a[i].des);
     	}
+    	fclose(fp);
+}
+
+void display_taskOfuser(int userid)
+{
+	int i;
+	assign a[100];
+    	int r=0;
+    	int rec=0;
+    	
+    	FILE* fp = fopen("assign.csv", "r");
+    	if (!fp)
+    	{
+        	/* Error in file opening */
+        	printf("Can't open file\n");
+        	exit(0);
+    	}
+	
+	do
+	{
+		r=fscanf(fp,"%d,%[^,],%[^,],%d,%[^,],%s\n", &a[rec].uid, a[rec].uname, a[rec].des, &a[rec].tid, a[rec].tname,a[rec].dline);
+		if(r == 6)
+		{
+			rec++;
+		}
+		/*printf("%d",r);*/
+		if(r != 6 && !feof(fp))
+		{
+			printf("\nError in Format\n");
+			break;
+		}
+		if(ferror(fp))
+		{
+			printf("\nError in Reading\n");
+			break;
+		}
+	}while(!feof(fp));
+	
+    	printf("\nRecords Read. %d\n",rec);
+    	
+    	for(i=0;i<rec;i++)
+    	{
+    		if(a[i].uid==userid)
+    		{
+    			printf("For USER %s with User Id %d and Designation %s \n",a[i].uname,a[i].uid,a[i].des);
+    			printf("\tTaskId\tTaskName\tDeadline\n");
+    			printf("\t%d\t%s\t\t%10s\n",a[i].tid,a[i].tname,a[i].dline);
+    			break;
+    		}
+    	}
+	
     	fclose(fp);
 }

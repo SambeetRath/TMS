@@ -27,5 +27,6 @@ void delete_user(int);
 
 void assignment();
 void display_usertask(int);
+void display_taskOfuser(int);
 
 #endif
