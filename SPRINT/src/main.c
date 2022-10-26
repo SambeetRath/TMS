@@ -85,7 +85,7 @@ int userlogin(void)
 					printf("\tAdd another account? (Y/N): ");
 					scanf(" %c",&c);/*skip leading whitespace*/
 			    	}while(c=='Y'||c=='y');
-			    	printf("\tSIGNUP SUCCESSFUL\n\tPLEASE REOPEN THE APPLICATION");
+			    	printf("\tSIGNUP SUCCESSFUL\n\tPLEASE REOPEN THE APPLICATION\n");
 		    	}
 		    	else
 		    	{
