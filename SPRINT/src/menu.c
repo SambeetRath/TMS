@@ -15,19 +15,19 @@ int menu1()
 void execMenu()
 {
 	int uid,tid;
+	int n;
+	int m;
 	bool loop= true;
 	while(loop)
 	{
 		switch(menu1())
 	    	{
 			case 1:
-				int n;
 				printf("\nEnter the number of records you want to enter : ");
 				(void)scanf("%d",&n);
 				create_user(n);
 				break;
 			case 2:
-				int m;
 				printf("\nEnter the number of records you want to enter : ");
 				(void)scanf("%d",&m);
 				create_task(m);
@@ -57,7 +57,7 @@ void execMenu()
 				break;
 			case 8:
 				printf("\nEnter the TASK Id to DELETE record : ");
-				scanf("%d",&tid);
+				(void)scanf("%d",&tid);
 				delete_task(tid);
 				break;
 			case 9:
@@ -67,28 +67,26 @@ void execMenu()
 				break;
 			case 10:
 				printf("\nEnter the TASK Id to SEARCH record : ");
-				scanf("%d",&tid);
+				(void)scanf("%d",&tid);
 				search_task(tid);
 				break;
 			case 11:
 				assignment();
 				break;
 			case 12:
-				int taskid;
 				printf("\nEnter the TASK Id to View assigned users to the task : ");
-				(void)scanf("%d",&taskid);
-				display_usertask(taskid);
+				(void)scanf("%d",&tid);
+				display_usertask(tid);
 				break;
 			case 13:
-				int userid;
 				printf("\nEnter the USER Id to View assigned task : ");
-				(void)scanf("%d",&userid);
-				display_taskOfuser(userid);
+				(void)scanf("%d",&uid);
+				display_taskOfuser(uid);
 				break;
 			case 0:
 				printf("\n\t*************************************************************\t\n");
 				loop=false;
-				exit(EXIT_SUCCESS);
+				
 
 			default:
 				printf("\nEnterd incorrect choice");
