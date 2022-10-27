@@ -91,7 +91,7 @@ void execMenu()
 				exit(EXIT_SUCCESS);
 
 			default:
-				printf("\nEnter the correct choice");
+				printf("\nEnterd incorrect choice");
 				loop=false;
     		}
     	}
