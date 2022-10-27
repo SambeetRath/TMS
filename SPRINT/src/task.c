@@ -5,7 +5,7 @@ void create_task(int n)
 {
 	task *t;
     	t=(task*)calloc(n, sizeof(task));
-    	FILE* fp = fopen("../data/task.csv", "a+");
+    	FILE* fp = fopen(tcsv, appenddat);
  	int j;
     	if (!fp) 
     	{
@@ -56,13 +56,13 @@ void create_task(int n)
 		(void)fclose(fp);
     	}
     	printf("\nTASK TABLE SUCCESSFULLY CREATED\n");
-    	
+    	free(t);
 }
 
 void read_task()
 {
 
-	FILE* fp = fopen("../data/task.csv", "r");
+	FILE* fp = fopen(tcsv, readdat);
  	char buffer[1024];
  
     	if (!fp) 
@@ -93,7 +93,7 @@ void search_task(int tid)
 	task ta[100];
 	int r=0;
     	int rec=0;
-	FILE* fp = fopen("../data/task.csv", "r");
+	FILE* fp = fopen(tcsv, readdat);
  	
     	if (!fp) 
     	{
@@ -156,10 +156,10 @@ void update_task(int tid)
 	char tdes[20];
 	char tdeadl[14];
 	
-	FILE* fp = fopen("../data/task.csv", "r");
- 	FILE* fpt = fopen("../data/temptask.csv", "a+");
+	FILE* fp = fopen(tcsv, readdat);
+ 	FILE* fpt = fopen("../data/temptask.csv", appenddat);
  	
- 	char fname[20]="../data/task.csv";
+ 	char fname[20]=tcsv;
 	char tfname[20]="../data/temptask.csv";
  	
     	if (!fp || !fpt) 
@@ -258,10 +258,10 @@ void delete_task(int tid)
     	int rec=0;     
 	int find=-1;
 	
-	FILE* fp = fopen("../data/task.csv", "r");
- 	FILE* fpt = fopen("../data/temptask.csv", "a+");
+	FILE* fp = fopen(tcsv, readdat);
+ 	FILE* fpt = fopen("../data/temptask.csv", appenddat);
  	
- 	char filename[20]="../data/task.csv";
+ 	char filename[20]=tcsv;
 	char temp_filename[20]="../data/temptask.csv";
  	
     	if (!fp || !fpt) 

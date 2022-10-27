@@ -1,6 +1,12 @@
 #ifndef MENU_H
 #define MENU_H
 
+#define appenddat "a+"
+#define readdat "r+"
+#define writedat "w+"
+
+#define logindat "../data/user.dat"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

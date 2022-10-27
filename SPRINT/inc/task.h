@@ -1,6 +1,8 @@
 #ifndef TASK_H
 #define TASK_H
 
+#define tcsv "../data/task.csv"
+
 typedef struct task
 {
 	int task_id;

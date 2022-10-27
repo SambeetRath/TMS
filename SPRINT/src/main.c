@@ -26,9 +26,9 @@ int userlogin()
 		case 1:
 	    	    	u=0;
 	    	    	p=0;
-		    	if ( ( fp=fopen("../data/user.dat", "r+")) == NULL) 
+		    	if ( ( fp=fopen(logindat, readdat)) == NULL) 
 		    	{
-		        	if (( fp=fopen("../data/user.dat", "w+")) == NULL) 
+		        	if (( fp=fopen(logindat, writedat)) == NULL) 
 		        	{
 		            		printf ("Could not open file\n");
 		            		exit (EXIT_FAILURE);
@@ -70,9 +70,9 @@ int userlogin()
 		        {
 			    	do
 			    	{
-					if ( ( fp=fopen("../data/user.dat", "a+")) == NULL) 
+					if ( ( fp=fopen(logindat, appenddat)) == NULL) 
 					{
-				    		if ( ( fp=fopen("../data/user.dat", "w+")) == NULL) 
+				    		if ( ( fp=fopen(logindat, writedat)) == NULL) 
 				    		{
 				        		printf ("Could not open file\n");
 				        		exit (EXIT_FAILURE);

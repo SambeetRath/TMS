@@ -86,6 +86,7 @@ void execMenu()
 			case 0:
 				printf("\n\t*************************************************************\t\n");
 				loop=false;
+				break;
 				
 
 			default:
