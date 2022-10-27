@@ -61,6 +61,7 @@ int userlogin()
 		    		printf("\tLOGIN UNSUCCESSFUL\n");
 		    		out=0;
 		    	}
+		    	fclose(fp);
 		    	break;
 
 		case 2:
@@ -74,7 +75,7 @@ int userlogin()
 					{
 				    		if ( ( fp=fopen(logindat, writedat)) == NULL) 
 				    		{
-				        		printf ("Could not open file\n");
+				        		printf ("\tCould not open file\n");
 				        		exit (EXIT_FAILURE);
 				    		}
 					}
@@ -90,17 +91,17 @@ int userlogin()
 		    	}
 		    	else
 		    	{
-		    		printf("\n***INVALID PIN***\n");
+		    		printf("\n\t***INVALID PIN***\n");
 		    	}
+		    	fclose(fp);
 		    	break;
 		    		
-		    	/*case 3:
-		    		exit(EXIT_SUCCESS);*/
 		    	default:
 		    		printf("Wrong input");
+		    		
 	    	}
 	free (pUser);/*free allocated memory*/
-	fclose(fp);
+	
     	return out;
 }   
    

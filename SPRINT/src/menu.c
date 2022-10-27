@@ -90,7 +90,7 @@ void execMenu()
 				
 
 			default:
-				printf("\nEnterd incorrect choice");
+				printf("\n\tEnterd incorrect choice");
 				loop=false;
     		}
     	}

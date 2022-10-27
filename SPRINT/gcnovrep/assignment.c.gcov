@@ -1,0 +1,340 @@
+        -:    0:Source:assignment.c
+        -:    1:#include <menu.h>
+        -:    2:#include <user.h>
+        -:    3:#include <task.h>
+        -:    4:#include <assignment.h>
+        -:    5:
+        -:    6:
+function assignment called 1 returned 100% blocks executed 70%
+        1:    7:void assignment()
+        -:    8:{
+        -:    9:	
+        1:   10:	FILE* fpu = fopen(ucsv, readdat);
+call    0 returned 100%
+        -:   11:
+        1:   12:    	if (fpu==NULL)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:   13:    	{
+        -:   14:        	/* Error in file opening */
+    #####:   15:        	printf("Can't open file\n");
+call    0 never executed
+    #####:   16:        	exit(EXIT_FAILURE);
+call    0 never executed
+        -:   17:    	}
+        -:   18:
+        -:   19:    		user us[100];
+        1:   20:    		int ru=0;
+        1:   21:    		int recu=0;
+        -:   22:
+        -:   23:		do
+        -:   24:		{
+       11:   25:		 	ru=fscanf(fpu,"%d,%[^,],%s\n",&us[recu].user_id, us[recu].user_name,us[recu].designation);
+call    0 returned 100%
+       11:   26:			if(ru == 3)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        -:   27:			{
+       11:   28:				recu++;
+        -:   29:			}
+        -:   30:			/*printf("%d",r);*/
+      11*:   31:			if(ru != 3 && !feof(fpu))
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+        -:   32:			{
+    #####:   33:				printf("\nError in Format\n");
+call    0 never executed
+    #####:   34:				break;
+        -:   35:			}
+       11:   36:			if(ferror(fpu))
+call    0 returned 100%
+branch  1 taken 0% (fallthrough)
+branch  2 taken 100%
+        -:   37:			{
+    #####:   38:				printf("\nError in Reading\n");
+call    0 never executed
+    #####:   39:				break;
+        -:   40:			}
+       11:   41:		}while(!feof(fpu));
+call    0 returned 100%
+branch  1 taken 91%
+branch  2 taken 9% (fallthrough)
+        -:   42:
+        1:   43:    	(void)fclose(fpu);
+call    0 returned 100%
+        -:   44:
+        1:   45:    	FILE* fpt = fopen(tcsv, readdat);
+call    0 returned 100%
+        1:   46:    	if (fpt==NULL)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:   47:    	{
+        -:   48:        	/* Error in file opening */
+    #####:   49:        	printf("Can't open file\n");
+call    0 never executed
+    #####:   50:        	exit(EXIT_FAILURE);
+call    0 never executed
+        -:   51:    	}
+        -:   52:
+        -:   53:    		task ta[100];
+        1:   54:    		int rt=0;
+        1:   55:    		int rect=0;
+        -:   56:
+        -:   57:		do
+        -:   58:		{
+        4:   59:		 	rt=fscanf(fpt,"%d,%[^,],%[^,],%s\n",&ta[rect].task_id, ta[rect].task_name,ta[rect].description,ta[rect].deadline);
+call    0 returned 100%
+        4:   60:			if(rt == 4)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        -:   61:			{
+        4:   62:				rect++;
+        -:   63:			}
+        -:   64:			/*printf("%d",r);*/
+       4*:   65:			if(rt != 4 && !feof(fpt))
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+        -:   66:			{
+    #####:   67:				printf("\nError in Format\n");
+call    0 never executed
+    #####:   68:				break;
+        -:   69:			}
+        4:   70:			if(ferror(fpt))
+call    0 returned 100%
+branch  1 taken 0% (fallthrough)
+branch  2 taken 100%
+        -:   71:			{
+    #####:   72:				printf("\nError in Reading\n");
+call    0 never executed
+    #####:   73:				break;
+        -:   74:			}
+        4:   75:		}while(!feof(fpt));
+call    0 returned 100%
+branch  1 taken 75%
+branch  2 taken 25% (fallthrough)
+        -:   76:
+        1:   77:    	(void)fclose(fpt);
+call    0 returned 100%
+        -:   78:
+        1:   79:    	FILE* fp = fopen(acsv, writedat);
+call    0 returned 100%
+        1:   80:    	if (fp==NULL)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:   81:    	{
+        -:   82:        	/* Error in file opening */
+    #####:   83:        	printf("Can't open file\n");
+call    0 never executed
+    #####:   84:        	exit(EXIT_FAILURE);
+call    0 never executed
+        -:   85:    	}
+        -:   86:    	int i,j;
+        -:   87:
+       12:   88:    	for(i=0;i<recu;i++)
+branch  0 taken 92%
+branch  1 taken 8% (fallthrough)
+        -:   89:    	{
+       11:   90:    		fprintf(fp,"%d,%s,%s",us[i].user_id,us[i].user_name,us[i].designation);
+call    0 returned 100%
+       23:   91:	    	for(j=0;j<rect;j++)
+branch  0 taken 100%
+branch  1 taken 0% (fallthrough)
+        -:   92:    		{
+       23:   93:	    		if(ta[j].task_name[0] == us[i].designation[0] && ta[j].task_name[1] == us[i].designation[1] && ta[j].task_name[2] == us[i].designation[2] && ta[j].task_name[3] == us[i].designation[3])
+branch  0 taken 48% (fallthrough)
+branch  1 taken 52%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+branch  4 taken 100% (fallthrough)
+branch  5 taken 0%
+branch  6 taken 100% (fallthrough)
+branch  7 taken 0%
+        -:   94:	    		{
+       11:   95:	    			fprintf(fp,",%d,%s,%10s",ta[j].task_id,ta[j].task_name,ta[j].deadline);
+call    0 returned 100%
+       11:   96:	    			break;
+        -:   97:	    		}
+        -:   98:	    	}
+       11:   99:	    	fprintf(fp,"\n");
+call    0 returned 100%
+        -:  100:    	}
+        1:  101:    	(void)fclose(fp);
+call    0 returned 100%
+        1:  102:}
+        -:  103:
+function display_usertask called 3 returned 100% blocks executed 76%
+        3:  104:void display_usertask(int taskid)
+        -:  105:{
+        -:  106:	int i;
+        -:  107:	assign a[100];
+        3:  108:    	int r=0;
+        3:  109:    	int rec=0;
+        -:  110:    	
+        3:  111:    	FILE* fp = fopen(acsv, readdat);
+call    0 returned 100%
+        3:  112:    	if (fp==NULL)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:  113:    	{
+        -:  114:        	/* Error in file opening */
+    #####:  115:        	printf("Can't open file\n");
+call    0 never executed
+    #####:  116:        	exit(EXIT_FAILURE);
+call    0 never executed
+        -:  117:    	}
+        -:  118:
+        -:  119:	do
+        -:  120:	{
+       33:  121:		 r=fscanf(fp,"%d,%[^,],%[^,],%d,%[^,],%s\n", &a[rec].uid, a[rec].uname, a[rec].des, &a[rec].tid, a[rec].tname,a[rec].dline);
+call    0 returned 100%
+       33:  122:		if(r == 6)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        -:  123:		{
+       33:  124:			rec++;
+        -:  125:		}
+        -:  126:		/*printf("%d",r);*/
+      33*:  127:		if(r != 6 && !feof(fp))
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+        -:  128:		{
+    #####:  129:			printf("\nError in Format\n");
+call    0 never executed
+    #####:  130:			break;
+        -:  131:		}
+       33:  132:		if(ferror(fp))
+call    0 returned 100%
+branch  1 taken 0% (fallthrough)
+branch  2 taken 100%
+        -:  133:		{
+    #####:  134:			printf("\nError in Reading\n");
+call    0 never executed
+    #####:  135:			break;
+        -:  136:		}
+       33:  137:	}while(!feof(fp));
+call    0 returned 100%
+branch  1 taken 91%
+branch  2 taken 9% (fallthrough)
+        -:  138:	
+        3:  139:    	printf("\nRecords Read. %d\n",rec);
+call    0 returned 100%
+        -:  140:    	
+       25:  141:    	for(i=0;i<rec;i++)
+branch  0 taken 92%
+branch  1 taken 8% (fallthrough)
+        -:  142:    	{
+       23:  143:    		if(a[i].tid==taskid)
+branch  0 taken 4% (fallthrough)
+branch  1 taken 96%
+        -:  144:    		{
+        1:  145:    			printf("For task %s with Task Id %d and deadline %10s \n",a[i].tname,a[i].tid,a[i].dline);
+call    0 returned 100%
+        1:  146:    			break;
+        -:  147:    		}
+        -:  148:    	}
+        3:  149:	printf("\tUserId\tUserName\tDesignation\n");
+call    0 returned 100%
+       36:  150:    	for(i=0;i<rec;i++)
+branch  0 taken 92%
+branch  1 taken 8% (fallthrough)
+        -:  151:    	{
+       33:  152:    		if(a[i].tid==taskid)
+branch  0 taken 12% (fallthrough)
+branch  1 taken 88%
+        4:  153:    		printf("\t%d\t%s\t\t%s\n",a[i].uid,a[i].uname,a[i].des);
+call    0 returned 100%
+        -:  154:    	}
+        3:  155:    	(void)fclose(fp);
+call    0 returned 100%
+        3:  156:}
+        -:  157:
+function display_taskOfuser called 1 returned 100% blocks executed 69%
+        1:  158:void display_taskOfuser(int userid)
+        -:  159:{
+        -:  160:	int i;
+        -:  161:	assign a[100];
+        1:  162:    	int r=0;
+        1:  163:    	int rec=0;
+        -:  164:    	
+        1:  165:    	FILE* fp = fopen(acsv, readdat);
+call    0 returned 100%
+        1:  166:    	if (fp==NULL)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:  167:    	{
+        -:  168:        	/* Error in file opening */
+    #####:  169:        	printf("Can't open file\n");
+call    0 never executed
+    #####:  170:        	exit(EXIT_FAILURE);
+call    0 never executed
+        -:  171:    	}
+        -:  172:	
+        -:  173:	do
+        -:  174:	{
+       11:  175:		r=fscanf(fp,"%d,%[^,],%[^,],%d,%[^,],%s\n", &a[rec].uid, a[rec].uname, a[rec].des, &a[rec].tid, a[rec].tname,a[rec].dline);
+call    0 returned 100%
+       11:  176:		if(r == 6)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        -:  177:		{
+       11:  178:			rec++;
+        -:  179:		}
+        -:  180:		/*printf("%d",r);*/
+      11*:  181:		if(r != 6 && !feof(fp))
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+        -:  182:		{
+    #####:  183:			printf("\nError in Format\n");
+call    0 never executed
+    #####:  184:			break;
+        -:  185:		}
+       11:  186:		if(ferror(fp))
+call    0 returned 100%
+branch  1 taken 0% (fallthrough)
+branch  2 taken 100%
+        -:  187:		{
+    #####:  188:			printf("\nError in Reading\n");
+call    0 never executed
+    #####:  189:			break;
+        -:  190:		}
+       11:  191:	}while(!feof(fp));
+call    0 returned 100%
+branch  1 taken 91%
+branch  2 taken 9% (fallthrough)
+        -:  192:	
+        1:  193:    	printf("\nRecords Read. %d\n",rec);
+call    0 returned 100%
+        -:  194:    	
+       1*:  195:    	for(i=0;i<rec;i++)
+branch  0 taken 100%
+branch  1 taken 0% (fallthrough)
+        -:  196:    	{
+        1:  197:    		if(a[i].uid==userid)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        -:  198:    		{
+        1:  199:    			printf("For USER %s with User Id %d and Designation %s \n",a[i].uname,a[i].uid,a[i].des);
+call    0 returned 100%
+        1:  200:    			printf("\tTaskId\tTaskName\tDeadline\n");
+call    0 returned 100%
+        1:  201:    			printf("\t%d\t%s\t\t%10s\n",a[i].tid,a[i].tname,a[i].dline);
+call    0 returned 100%
+        1:  202:    			break;
+        -:  203:    		}
+        -:  204:    	}
+        -:  205:	
+        1:  206:    	(void)fclose(fp);
+call    0 returned 100%
+        1:  207:}

@@ -9,10 +9,10 @@ void assignment()
 	
 	FILE* fpu = fopen(ucsv, readdat);
 
-    	if (!fpu)
+    	if (fpu==NULL)
     	{
         	/* Error in file opening */
-        	printf("Can't open file\n");
+        	printf("\tCan't open file\n");
         	exit(EXIT_FAILURE);
     	}
 
@@ -43,10 +43,10 @@ void assignment()
     	(void)fclose(fpu);
 
     	FILE* fpt = fopen(tcsv, readdat);
-    	if (!fpt)
+    	if (fpt==NULL)
     	{
         	/* Error in file opening */
-        	printf("Can't open file\n");
+        	printf("\tCan't open file\n");
         	exit(EXIT_FAILURE);
     	}
 
@@ -64,12 +64,12 @@ void assignment()
 			/*printf("%d",r);*/
 			if(rt != 4 && !feof(fpt))
 			{
-				printf("\nError in Format\n");
+				printf("\n\tError in Format\n");
 				break;
 			}
 			if(ferror(fpt))
 			{
-				printf("\nError in Reading\n");
+				printf("\n\tError in Reading\n");
 				break;
 			}
 		}while(!feof(fpt));
@@ -77,10 +77,10 @@ void assignment()
     	(void)fclose(fpt);
 
     	FILE* fp = fopen(acsv, writedat);
-    	if (!fp)
+    	if (fp==NULL)
     	{
         	/* Error in file opening */
-        	printf("Can't open file\n");
+        	printf("\tCan't open file\n");
         	exit(EXIT_FAILURE);
     	}
     	int i,j;
@@ -104,15 +104,16 @@ void assignment()
 void display_usertask(int taskid)
 {
 	int i;
+	int find=-1;
 	assign a[100];
     	int r=0;
     	int rec=0;
     	
     	FILE* fp = fopen(acsv, readdat);
-    	if (!fp)
+    	if (fp==NULL)
     	{
         	/* Error in file opening */
-        	printf("Can't open file\n");
+        	printf("\tCan't open file\n");
         	exit(EXIT_FAILURE);
     	}
 
@@ -126,47 +127,59 @@ void display_usertask(int taskid)
 		/*printf("%d",r);*/
 		if(r != 6 && !feof(fp))
 		{
-			printf("\nError in Format\n");
+			printf("\n\tError in Format\n");
 			break;
 		}
 		if(ferror(fp))
 		{
-			printf("\nError in Reading\n");
+			printf("\nE\trror in Reading\n");
 			break;
 		}
 	}while(!feof(fp));
 	
-    	printf("\nRecords Read. %d\n",rec);
+    	printf("\n\tRecords Read. %d\n",rec);
     	
     	for(i=0;i<rec;i++)
     	{
     		if(a[i].tid==taskid)
     		{
     			printf("For task %s with Task Id %d and deadline %10s \n",a[i].tname,a[i].tid,a[i].dline);
+    			find++;
     			break;
     		}
     	}
-	printf("\tUserId\tUserName\tDesignation\n");
-    	for(i=0;i<rec;i++)
+    	if(find!=-1)
     	{
-    		if(a[i].tid==taskid)
-    		printf("\t%d\t%s\t\t%s\n",a[i].uid,a[i].uname,a[i].des);
-    	}
+		printf("\tUserId\tUserName\tDesignation\n");
+	    	for(i=0;i<rec;i++)
+	    	{
+	    		if(a[i].tid==taskid)
+	    		{
+	    			printf("\t%d\t%s\t\t%s\n",a[i].uid,a[i].uname,a[i].des);
+	    		}
+	    	}
+	}
+	
     	(void)fclose(fp);
+    	if(find==-1)
+    	{
+    		printf("\n\tINVALID USER ID\n");
+    	}
 }
 
 void display_taskOfuser(int userid)
 {
 	int i;
+	int find=-1;
 	assign a[100];
     	int r=0;
     	int rec=0;
     	
     	FILE* fp = fopen(acsv, readdat);
-    	if (!fp)
+    	if (fp==NULL)
     	{
         	/* Error in file opening */
-        	printf("Can't open file\n");
+        	printf("\tCan't open file\n");
         	exit(EXIT_FAILURE);
     	}
 	
@@ -180,17 +193,17 @@ void display_taskOfuser(int userid)
 		/*printf("%d",r);*/
 		if(r != 6 && !feof(fp))
 		{
-			printf("\nError in Format\n");
+			printf("\n\tError in Format\n");
 			break;
 		}
 		if(ferror(fp))
 		{
-			printf("\nError in Reading\n");
+			printf("\n\tError in Reading\n");
 			break;
 		}
 	}while(!feof(fp));
 	
-    	printf("\nRecords Read. %d\n",rec);
+    	printf("\n\tRecords Read. %d\n",rec);
     	
     	for(i=0;i<rec;i++)
     	{
@@ -199,9 +212,14 @@ void display_taskOfuser(int userid)
     			printf("For USER %s with User Id %d and Designation %s \n",a[i].uname,a[i].uid,a[i].des);
     			printf("\tTaskId\tTaskName\tDeadline\n");
     			printf("\t%d\t%s\t\t%10s\n",a[i].tid,a[i].tname,a[i].dline);
+    			find++;
     			break;
     		}
     	}
 	
     	(void)fclose(fp);
+    	if(find==-1)
+    	{
+    		printf("\n\tINVALID USER ID\n");
+    	}
 }
