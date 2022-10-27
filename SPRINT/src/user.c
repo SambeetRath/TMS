@@ -6,23 +6,27 @@ void create_user(int n)
 {
 	user *u;
  	u=(user*)calloc(n, sizeof(user));
-    	FILE* fp = fopen("user.csv", "a+");
+    	FILE* fp = fopen("../data/user.csv", "a+");
  	int j;
-    	if (!fp)
-        printf("Can't open file\n");
+    	if (!fp) 
+    	{
+        	/* Error in file opening */
+        	printf("Can't open file\n");
+        	exit(EXIT_FAILURE);
+    	}
     	else 
     	{       
     		for(j=0;j<n;j++)
     		{
 			printf("\n");
 			printf("\nEnter USER ID\n");
-		    	scanf("%d", &u[j].user_id);
+		    	(void)scanf("%d", &u[j].user_id);
 		    
 		    	printf("\nEnter USER Name\n");
-		    	scanf("%s", u[j].user_name);
+		    	(void)scanf("%s", u[j].user_name);
 		    
 			printf("\nEnter USER DESIGNATION\n");
-		    	scanf("%s", u[j].designation);
+		    	(void)scanf("%s", u[j].designation);
 		    
 		 
 		    	/* Saving data in file */
@@ -43,7 +47,7 @@ void create_user(int n)
 		    	printf("User info invalid");
 		    }	
 		    	/* Close the file */
-		fclose(fp);
+		(void)fclose(fp);
 		
     	}
     	printf("\nUSER TABLE SUCCESSFULLY CREATED\n");
@@ -52,13 +56,13 @@ void create_user(int n)
 void read_user()
 {
 
-	FILE* fp = fopen("user.csv", "r");
+	FILE* fp = fopen("../data/user.csv", "r");
  
     	if (!fp) 
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
-        	exit(0);
+        	exit(EXIT_FAILURE);
     	}
     	else
     	{        
@@ -84,12 +88,12 @@ void search_user(int uid)
 	user us[100];
     	int r=0;
     	int rec=0;
-	FILE* fp = fopen("user.csv", "r");
+	FILE* fp = fopen("../data/user.csv", "r");
     	if (!fp) 
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
-        	exit(0);
+        	exit(EXIT_FAILURE);
     	}
     		     
 	do
@@ -112,7 +116,7 @@ void search_user(int uid)
 		}
 	}while(!feof(fp));
     	
-    	fclose(fp);
+    	(void)fclose(fp);
     	
     	printf("\nRecords Read. %d\n",rec);
     	
@@ -141,17 +145,17 @@ void delete_user(int uid)
 	int find=-1;
 	int i;
 	
-	FILE* fp = fopen("user.csv", "r");
- 	FILE* fpt = fopen("tempuser.csv", "a+");
+	FILE* fp = fopen("../data/user.csv", "r");
+ 	FILE* fpt = fopen("../data/tempuser.csv", "a+");
  	
- 	char filename[20]="user.csv";
-	char temp_filename[20]="tempuser.csv";
+ 	char filename[20]="../data/user.csv";
+	char temp_filename[20]="../data/tempuser.csv";
  	
     	if (!fp || !fpt) 
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
-        	exit(0);
+        	exit(EXIT_FAILURE);
     	}
 
 	do
@@ -192,11 +196,11 @@ void delete_user(int uid)
     		}
     	}
     	
-    	fclose(fp);
-    	fclose(fpt);
+    	(void)fclose(fp);
+    	(void)fclose(fpt);
     	
-    	remove(filename);
-    	rename(temp_filename,filename);
+    	(void)remove(filename);
+    	(void)rename(temp_filename,filename);
     	
     	if(find!=-1)
     	{
@@ -218,17 +222,17 @@ void update_user(int uid)
     	char tuname[50];
 	char tdes[20];
 	
-	FILE* fp = fopen("user.csv", "r");
- 	FILE* fpt = fopen("tempuser.csv", "a+");
+	FILE* fp = fopen("../data/user.csv", "r");
+ 	FILE* fpt = fopen("../data/tempuser.csv", "a+");
  	
- 	char filename[20]="user.csv";
-	char temp_filename[20]="tempuser.csv";
+ 	char filename[20]="../data/user.csv";
+	char temp_filename[20]="../data/tempuser.csv";
  	
     	if (!fp || !fpt) 
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
-        	exit(0);
+        	exit(EXIT_FAILURE);
     	}
     		
 	do
@@ -269,22 +273,22 @@ void update_user(int uid)
     		if(i==find)
     		{
     			printf("\nEnter USER ID\n");
-		    	scanf("%d", &tuid);
+		    	(void)scanf("%d", &tuid);
 		    
 		    	printf("\nEnter USER Name\n");
-		    	scanf("%s", tuname);
+		    	(void)scanf("%s", tuname);
 		    
 			printf("\nEnter USER DESIGNATION\n");
-		    	scanf("%s", tdes);
+		    	(void)scanf("%s", tdes);
 		    	
 		    	fprintf(fpt, "%d,%s,%s\n", tuid, tuname, tdes);
     		}
     	}
-    	fclose(fp);
-    	fclose(fpt);
+    	(void)fclose(fp);
+    	(void)fclose(fpt);
     	
-    	remove(filename);
-    	rename(temp_filename,filename);
+    	(void)remove(filename);
+    	(void)rename(temp_filename,filename);
     	
     	if(find!=-1)
     	{

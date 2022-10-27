@@ -7,13 +7,13 @@
 void assignment()
 {
 	
-	FILE* fpu = fopen("user.csv", "r");
+	FILE* fpu = fopen("../data/user.csv", "r");
 
     	if (!fpu)
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
-        	exit(0);
+        	exit(EXIT_FAILURE);
     	}
 
     		user us[100];
@@ -40,14 +40,14 @@ void assignment()
 			}
 		}while(!feof(fpu));
 
-    	fclose(fpu);
+    	(void)fclose(fpu);
 
-    	FILE* fpt = fopen("task.csv", "r");
+    	FILE* fpt = fopen("../data/task.csv", "r");
     	if (!fpt)
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
-        	exit(0);
+        	exit(EXIT_FAILURE);
     	}
 
     		task ta[100];
@@ -74,9 +74,15 @@ void assignment()
 			}
 		}while(!feof(fpt));
 
-    	fclose(fpt);
+    	(void)fclose(fpt);
 
-    	FILE* fp = fopen("assign.csv", "w+");
+    	FILE* fp = fopen("../data/assign.csv", "w+");
+    	if (!fp)
+    	{
+        	/* Error in file opening */
+        	printf("Can't open file\n");
+        	exit(EXIT_FAILURE);
+    	}
     	int i,j;
 
     	for(i=0;i<recu;i++)
@@ -92,7 +98,7 @@ void assignment()
 	    	}
 	    	fprintf(fp,"\n");
     	}
-    	fclose(fp);
+    	(void)fclose(fp);
 }
 
 void display_usertask(int taskid)
@@ -102,12 +108,12 @@ void display_usertask(int taskid)
     	int r=0;
     	int rec=0;
     	
-    	FILE* fp = fopen("assign.csv", "r");
+    	FILE* fp = fopen("../data/assign.csv", "r");
     	if (!fp)
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
-        	exit(0);
+        	exit(EXIT_FAILURE);
     	}
 
 	do
@@ -146,7 +152,7 @@ void display_usertask(int taskid)
     		if(a[i].tid==taskid)
     		printf("\t%d\t%s\t\t%s\n",a[i].uid,a[i].uname,a[i].des);
     	}
-    	fclose(fp);
+    	(void)fclose(fp);
 }
 
 void display_taskOfuser(int userid)
@@ -156,12 +162,12 @@ void display_taskOfuser(int userid)
     	int r=0;
     	int rec=0;
     	
-    	FILE* fp = fopen("assign.csv", "r");
+    	FILE* fp = fopen("../data/assign.csv", "r");
     	if (!fp)
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
-        	exit(0);
+        	exit(EXIT_FAILURE);
     	}
 	
 	do
@@ -197,5 +203,5 @@ void display_taskOfuser(int userid)
     		}
     	}
 	
-    	fclose(fp);
+    	(void)fclose(fp);
 }

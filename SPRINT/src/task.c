@@ -5,10 +5,14 @@ void create_task(int n)
 {
 	task *t;
     	t=(task*)calloc(n, sizeof(task));
-    	FILE* fp = fopen("task.csv", "a+");
+    	FILE* fp = fopen("../data/task.csv", "a+");
  	int j;
-    	if (!fp)
-        printf("Can't open file\n");
+    	if (!fp) 
+    	{
+        	/* Error in file opening */
+        	printf("Can't open file\n");
+        	exit(EXIT_FAILURE);
+    	}
  
     	else
     	
@@ -17,15 +21,15 @@ void create_task(int n)
     		{        
 			printf("\n");
 			printf("\nEnter TASK ID\n");
-		    	scanf("%d", &t[j].task_id);
+		    	(void)scanf("%d", &t[j].task_id);
 		    	printf("\nEnter TASK Name\n");
-		    	scanf("%s", t[j].task_name);
+		    	(void)scanf("%s", t[j].task_name);
 		    
 			printf("\nEnter TASK DESCRIPTION\n");
-		    	scanf("%s",t[j].description);
+		    	(void)scanf("%s",t[j].description);
 		    
 		    	printf("\nEnter TASK DEADLINE\n");
-		    	scanf("%s", t[j].deadline);
+		    	(void)scanf("%s", t[j].deadline);
 		 
 		    	/* Saving data in file */
 		    	int i,dt=1;
@@ -49,7 +53,7 @@ void create_task(int n)
 		    	printf("Task invalid");
 	    	}
 	    	/* Close the file */
-		fclose(fp);
+		(void)fclose(fp);
     	}
     	printf("\nTASK TABLE SUCCESSFULLY CREATED\n");
     	
@@ -58,14 +62,14 @@ void create_task(int n)
 void read_task()
 {
 
-	FILE* fp = fopen("task.csv", "r");
+	FILE* fp = fopen("../data/task.csv", "r");
  	char buffer[1024];
  
     	if (!fp) 
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
-        	exit(0);
+        	exit(EXIT_FAILURE);
     	}
     	else
     	{	    
@@ -80,7 +84,7 @@ void read_task()
 		    	}
 		}
     	}
-    	fclose(fp);
+    	(void)fclose(fp);
 }
 
 void search_task(int tid)
@@ -89,13 +93,13 @@ void search_task(int tid)
 	task ta[100];
 	int r=0;
     	int rec=0;
-	FILE* fp = fopen("task.csv", "r");
+	FILE* fp = fopen("../data/task.csv", "r");
  	
     	if (!fp) 
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
-        	exit(0);
+        	exit(EXIT_FAILURE);
     	}
     	     
 	do
@@ -118,7 +122,7 @@ void search_task(int tid)
 		}
 	}while(!feof(fp));
     	
-    	fclose(fp);
+    	(void)fclose(fp);
     	
     	printf("\nRecords Read. %d\n",rec);
     	
@@ -152,17 +156,17 @@ void update_task(int tid)
 	char tdes[20];
 	char tdeadl[14];
 	
-	FILE* fp = fopen("task.csv", "r");
- 	FILE* fpt = fopen("temptask.csv", "a+");
+	FILE* fp = fopen("../data/task.csv", "r");
+ 	FILE* fpt = fopen("../data/temptask.csv", "a+");
  	
- 	char fname[20]="task.csv";
-	char tfname[20]="temptask.csv";
+ 	char fname[20]="../data/task.csv";
+	char tfname[20]="../data/temptask.csv";
  	
     	if (!fp || !fpt) 
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
-        	exit(0);
+        	exit(EXIT_FAILURE);
     	}
     	
 	do
@@ -209,31 +213,32 @@ void update_task(int tid)
 		    	if(i==find)
 		    	{
 		    		printf("\nEnter TASK ID\n");
-			    	scanf("%d", &ttid);
+			    	(void)scanf("%d", &ttid);
 			    
 			    	printf("\nEnter TASK Name\n");
-			    	scanf("%s", ttname);
+			    	(void)scanf("%s", ttname);
 			    
 				printf("\nEnter TASK Description\n");
-			    	scanf("%s", tdes);
+			    	(void)scanf("%s", tdes);
 			    	
 			    	printf("\nEnter TASK DEADLINE\n");
-			    	scanf("%s", tdeadl);
+			    	(void)scanf("%s", tdeadl);
 			    	
 			    	fprintf(fpt, "%d,%s,%s,%10s\n", ttid, ttname, tdes, tdeadl);
 		    	}
 		}
 	}
     	
-    	fclose(fp);
-    	fclose(fpt);
+    	(void)fclose(fp);
+    	(void)fclose(fpt);
     	if(find!=(-1))
     	{
-    		remove(fname);
-    		rename(tfname,fname);
+    		(void)remove(fname);
+    		(void)rename(tfname,fname);
     	}
     	
-    	remove(tfname);
+    	(void)remove(tfname);
+    	
     	if(find!=-1)
     	{
     		printf("\nRECORD UPDATED SUCCESSFULLY\n");
@@ -253,17 +258,17 @@ void delete_task(int tid)
     	int rec=0;     
 	int find=-1;
 	
-	FILE* fp = fopen("task.csv", "r");
- 	FILE* fpt = fopen("temptask.csv", "a+");
+	FILE* fp = fopen("../data/task.csv", "r");
+ 	FILE* fpt = fopen("../data/temptask.csv", "a+");
  	
- 	char filename[20]="task.csv";
-	char temp_filename[20]="temptask.csv";
+ 	char filename[20]="../data/task.csv";
+	char temp_filename[20]="../data/temptask.csv";
  	
     	if (!fp || !fpt) 
     	{
         	/* Error in file opening */
         	printf("Can't open file\n");
-        	exit(0);
+        	exit(EXIT_FAILURE);
     	}
     		
 	do
@@ -310,16 +315,16 @@ void delete_task(int tid)
 	    	}
 	}
 	
-    	fclose(fp);
-    	fclose(fpt);
+    	(void)fclose(fp);
+    	(void)fclose(fpt);
     	if(find!=(-1))
     	{
-	    	remove(filename);
-	    	rename(temp_filename,filename);
+	    	(void)remove(filename);
+	    	(void)rename(temp_filename,filename);
 	}
 	else
 	{
-		remove(temp_filename);
+		(void)remove(temp_filename);
 	}
 	
 	if(find!=-1)
