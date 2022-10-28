@@ -20,16 +20,16 @@ void create_task(int n)
     		for(j=0;j<n;j++)
     		{        
 			printf("\n");
-			printf("\n\tEnter TASK ID\n");
-		    	(void)scanf("%d", &t[j].task_id);
-		    	printf("\n\tEnter TASK Name\n");
-		    	(void)scanf("%s", t[j].task_name);
+			printf("\nEnter TASK ID\n");
+		    	(void)scanf("%d", &t->task_id);
+		    	printf("\nEnter TASK Name\n");
+		    	(void)scanf("%s", t->task_name);
 		    
-			printf("\n\tEnter TASK DESCRIPTION\n");
-		    	(void)scanf("%s",t[j].description);
+			printf("\nEnter TASK DESCRIPTION\n");
+		    	(void)scanf("%s",t->description);
 		    
-		    	printf("\n\tEnter TASK DEADLINE\n");
-		    	(void)scanf("%s", t[j].deadline);
+		    	printf("\nEnter TASK DEADLINE\n");
+		    	(void)scanf("%s", t->deadline);
 		 
 		    	/* Saving data in file */
 		    	int i,dt=1;
@@ -38,15 +38,15 @@ void create_task(int n)
 			{
 				if(i!=2 && i!=5)
 				{
-					if(isdigit(t[j].deadline[i])==0)
+					if(isdigit(t->deadline[i])==0)
 					dt=0;
 						
 				}
 			}    	
 		    	
-		    	if(t[j].task_id<10000 && t[j].task_id>999 && dt==1)
+		    	if(t->task_id<10000 && t->task_id>999 && dt==1)
 		    	{
-		    		fprintf(fp, "%d,%s,%s,%s\n", t[j].task_id, t[j].task_name, t[j].description, t[j].deadline);
+		    		fprintf(fp, "%d,%s,%s,%s\n", t->task_id, t->task_name, t->description, t->deadline);
 		    		printf("\n\tNew TASK added to record");
 		    	}
 		    	else
@@ -56,12 +56,10 @@ void create_task(int n)
 		(void)fclose(fp);
     	}
     	printf("\n\tTASK TABLE SUCCESSFULLY CREATED\n");
-    	free(t);
 }
 
 void read_task()
 {
-
 	FILE* fp = fopen(TCSV, READDAT);
  	char buffer[1024];
  
@@ -73,13 +71,13 @@ void read_task()
     	}
     	else
     	{	    
- 		printf("\tTASK ID\tTASK NAME\tDESCRIPTION\tDEADLINE\n");
+ 		printf("\n\tTASK ID\t\t\tTASK NAME\t\tDESCRIPTION\t\tDEADLINE\n\n");
 		while (fgets(buffer,1024, fp)) 
 		{
 		    	char* value = strtok(buffer, ",");
 		    	while (value) 
 		    	{
-		        	printf("\t%s", value);
+		        	printf("\t%-18s", value);
 		        	value = strtok(NULL, ",");
 		    	}
 		}
@@ -212,16 +210,16 @@ void update_task(int tid)
 		    	}
 		    	if(i==find)
 		    	{
-		    		printf("\n\tEnter TASK ID\n");
+		    		printf("\nEnter TASK ID\n");
 			    	(void)scanf("%d", &ttid);
 			    
-			    	printf("\n\tEnter TASK Name\n");
+			    	printf("\nEnter TASK Name\n");
 			    	(void)scanf("%s", ttname);
 			    
-				printf("\n\tEnter TASK Description\n");
+				printf("\nEnter TASK Description\n");
 			    	(void)scanf("%s", tdes);
 			    	
-			    	printf("\n\tEnter TASK DEADLINE\n");
+			    	printf("\nEnter TASK DEADLINE\n");
 			    	(void)scanf("%s", tdeadl);
 			    	
 			    	fprintf(fpt, "%d,%s,%s,%10s\n", ttid, ttname, tdes, tdeadl);

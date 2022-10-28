@@ -16,31 +16,25 @@ void create_user(int n)
     	}
     	else 
     	{       
-    		for(j=0;j<n;j++)
+    		for(j=0;j<n;j++,u++)
     		{
 			printf("\n");
-			printf("\n\tEnter USER ID\n");
-		    	(void)scanf("%d", &u[j].user_id);
+			printf("\nEnter USER ID\n");
+		    	(void)scanf("%d", &u->user_id);
 		    
-		    	printf("\n\tEnter USER Name\n");
-		    	(void)scanf("%s", u[j].user_name);
+		    	printf("\nEnter USER Name\n");
+		    	(void)scanf("%s", u->user_name);
 		    
-			printf("\n\tEnter USER DESIGNATION\n");
-		    	(void)scanf("%s", u[j].designation);
+			printf("\nEnter USER DESIGNATION\n");
+		    	(void)scanf("%s", u->designation);
 		    
 		 
 		    	/* Saving data in file */
-		    	int un=1;
 		    	
-		    	
-				if(isupper(u[j].user_name[0])==0 && isupper(u[j].user_name[sizeof(u[j].user_name)])==0)
-				{
-					un=0;
-				}
 				    
-		    	if(u[j].user_id<10000 && u[j].user_id>999 && un==1)
+		    	if(u->user_id<10000 && u->user_id>999)
 		    	{
-		    		fprintf(fp, "%d,%s,%s\n", u[j].user_id, u[j].user_name,u[j].designation );
+		    		fprintf(fp, "%d,%s,%s\n", u->user_id, u->user_name,u->designation );
 		    		printf("\n\tNew USER added to record");
 		    	}
 		    	else
@@ -51,14 +45,13 @@ void create_user(int n)
 		
     	}
     	printf("\n\tUSER TABLE SUCCESSFULLY CREATED\n");
-    	free(u);
 }
 
 void read_user()
 {
-
 	FILE* fp = fopen(UCSV, READDAT);
- 
+ 	char buffer[1024];
+ 	
     	if (fp==NULL) 
     	{
         	/* Error in file opening */
@@ -67,15 +60,13 @@ void read_user()
     	}
     	else
     	{        
-		char buffer[1024];
- 		printf("\tUSER ID\t\tUSER NAME\tDESIGNATION\n\t");
+ 		printf("\n\t\tUSER ID\t\t\tUSER NAME\t\tDESIGNATION\n\n\t");
 		while (fgets(buffer,1024, fp)) 
 		{
 		    	char* value = strtok(buffer, ",");
-	 		
 		    	while (value) 
 		    	{
-		        	printf("%-18s", value);
+		        	printf("\t%-18s", value);
 		        	value = strtok(NULL, ",");
 		    	}
 		}
@@ -273,13 +264,13 @@ void update_user(int uid)
     		}
     		if(i==find)
     		{
-    			printf("\n\tEnter USER ID\n");
+    			printf("\nEnter USER ID\n");
 		    	(void)scanf("%d", &tuid);
 		    
-		    	printf("\n\tEnter USER Name\n");
+		    	printf("\nEnter USER Name\n");
 		    	(void)scanf("%s", tuname);
 		    
-			printf("\n\tEnter USER DESIGNATION\n");
+			printf("\nEnter USER DESIGNATION\n");
 		    	(void)scanf("%s", tdes);
 		    	
 		    	fprintf(fpt, "%d,%s,%s\n", tuid, tuname, tdes);
