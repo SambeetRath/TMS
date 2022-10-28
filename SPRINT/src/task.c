@@ -5,7 +5,7 @@ void create_task(int n)
 {
 	task *t;
     	t=(task*)calloc(n, sizeof(task));
-    	FILE* fp = fopen(tcsv, appenddat);
+    	FILE* fp = fopen(TCSV, APPENDDAT);
  	int j;
     	if (fp==NULL) 
     	{
@@ -62,7 +62,7 @@ void create_task(int n)
 void read_task()
 {
 
-	FILE* fp = fopen(tcsv, readdat);
+	FILE* fp = fopen(TCSV, READDAT);
  	char buffer[1024];
  
     	if (fp==NULL) 
@@ -93,7 +93,7 @@ void search_task(int tid)
 	task ta[100];
 	int r=0;
     	int rec=0;
-	FILE* fp = fopen(tcsv, readdat);
+	FILE* fp = fopen(TCSV, READDAT);
  	
     	if (fp==NULL) 
     	{
@@ -156,10 +156,10 @@ void update_task(int tid)
 	char tdes[20];
 	char tdeadl[14];
 	
-	FILE* fp = fopen(tcsv, readdat);
- 	FILE* fpt = fopen("../data/temptask.csv", appenddat);
+	FILE* fp = fopen(TCSV, READDAT);
+ 	FILE* fpt = fopen("../data/temptask.csv", APPENDDAT);
  	
- 	char fname[25]=tcsv;
+ 	char fname[25]=TCSV;
 	char tfname[25]="../data/temptask.csv";
  	
     	if (fp==NULL || fpt==NULL) 
@@ -258,10 +258,10 @@ void delete_task(int tid)
     	int rec=0;     
 	int find=-1;
 	
-	FILE* fp = fopen(tcsv, readdat);
- 	FILE* fpt = fopen("../data/temptask.csv", appenddat);
+	FILE* fp = fopen(TCSV, READDAT);
+ 	FILE* fpt = fopen("../data/temptask.csv", APPENDDAT);
  	
- 	char filename[25]=tcsv;
+ 	char filename[25]=TCSV;
 	char temp_filename[25]="../data/temptask.csv";
  	
     	if (fp==NULL || fpt==NULL) 

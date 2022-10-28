@@ -1,7 +1,7 @@
 #ifndef ASSIGNMENT_H
 #define ASSIGNMENT_H
 
-#define acsv "../data/assign.csv"
+#define ACSV "../data/assign.csv"
 
 typedef struct assign
 {

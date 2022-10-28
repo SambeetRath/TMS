@@ -1,7 +1,7 @@
 #ifndef TASK_H
 #define TASK_H
 
-#define tcsv "../data/task.csv"
+#define TCSV "../data/task.csv"
 
 typedef struct task
 {

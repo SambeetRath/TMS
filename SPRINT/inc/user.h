@@ -1,7 +1,7 @@
 #ifndef USER_H
 #define USER_H
 
-#define ucsv "../data/user.csv"
+#define UCSV "../data/user.csv"
 
 typedef struct user
 {

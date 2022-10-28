@@ -7,7 +7,7 @@
 void assignment()
 {
 	
-	FILE* fpu = fopen(ucsv, readdat);
+	FILE* fpu = fopen(UCSV, READDAT);
 
     	if (fpu==NULL)
     	{
@@ -42,7 +42,7 @@ void assignment()
 
     	(void)fclose(fpu);
 
-    	FILE* fpt = fopen(tcsv, readdat);
+    	FILE* fpt = fopen(TCSV, READDAT);
     	if (fpt==NULL)
     	{
         	/* Error in file opening */
@@ -76,7 +76,7 @@ void assignment()
 
     	(void)fclose(fpt);
 
-    	FILE* fp = fopen(acsv, writedat);
+    	FILE* fp = fopen(ACSV, WRITEDAT);
     	if (fp==NULL)
     	{
         	/* Error in file opening */
@@ -109,7 +109,7 @@ void display_usertask(int taskid)
     	int r=0;
     	int rec=0;
     	
-    	FILE* fp = fopen(acsv, readdat);
+    	FILE* fp = fopen(ACSV, READDAT);
     	if (fp==NULL)
     	{
         	/* Error in file opening */
@@ -175,7 +175,7 @@ void display_taskOfuser(int userid)
     	int r=0;
     	int rec=0;
     	
-    	FILE* fp = fopen(acsv, readdat);
+    	FILE* fp = fopen(ACSV, READDAT);
     	if (fp==NULL)
     	{
         	/* Error in file opening */

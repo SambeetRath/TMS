@@ -26,9 +26,9 @@ int userlogin()
 		case 1:
 	    	    	u=0;
 	    	    	p=0;
-		    	if ( ( fp=fopen(logindat, readdat)) == NULL) 
+		    	if ( ( fp=fopen(LOGINDAT, READDAT)) == NULL) 
 		    	{
-		        	if (( fp=fopen(logindat, writedat)) == NULL) 
+		        	if (( fp=fopen(LOGINDAT, WRITEDAT)) == NULL) 
 		        	{
 		            		printf ("Could not open file\n");
 		            		exit (EXIT_FAILURE);
@@ -71,9 +71,9 @@ int userlogin()
 		        {
 			    	do
 			    	{
-					if ( ( fp=fopen(logindat, appenddat)) == NULL) 
+					if ( ( fp=fopen(LOGINDAT, APPENDDAT)) == NULL) 
 					{
-				    		if ( ( fp=fopen(logindat, writedat)) == NULL) 
+				    		if ( ( fp=fopen(LOGINDAT, WRITEDAT)) == NULL) 
 				    		{
 				        		printf ("\tCould not open file\n");
 				        		exit (EXIT_FAILURE);
@@ -95,6 +95,8 @@ int userlogin()
 		    	}
 		    	fclose(fp);
 		    	break;
+		    	case 3:
+		    		break;
 		    		
 		    	default:
 		    		printf("Wrong input");

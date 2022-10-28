@@ -6,7 +6,7 @@ void create_user(int n)
 {
 	user *u;
  	u=(user*)calloc(n, sizeof(user));
-    	FILE* fp = fopen(ucsv, appenddat);
+    	FILE* fp = fopen(UCSV, APPENDDAT);
  	int j;
     	if (fp==NULL) 
     	{
@@ -57,7 +57,7 @@ void create_user(int n)
 void read_user()
 {
 
-	FILE* fp = fopen(ucsv, readdat);
+	FILE* fp = fopen(UCSV, READDAT);
  
     	if (fp==NULL) 
     	{
@@ -89,7 +89,7 @@ void search_user(int uid)
 	user us[100];
     	int r=0;
     	int rec=0;
-	FILE* fp = fopen(ucsv, readdat);
+	FILE* fp = fopen(UCSV, READDAT);
     	if (fp==NULL) 
     	{
         	/* Error in file opening */
@@ -146,10 +146,10 @@ void delete_user(int uid)
 	int find=-1;
 	int i;
 	
-	FILE* fp = fopen(ucsv, readdat);
- 	FILE* fpt = fopen("../data/tempuser.csv", appenddat);
+	FILE* fp = fopen(UCSV, READDAT);
+ 	FILE* fpt = fopen("../data/tempuser.csv", APPENDDAT);
  	
- 	char filename[25]=ucsv;
+ 	char filename[25]=UCSV;
 	char temp_filename[25]="../data/tempuser.csv";
  	
     	if (fp==NULL || fpt==NULL) 
@@ -223,10 +223,10 @@ void update_user(int uid)
     	char tuname[50];
 	char tdes[20];
 	
-	FILE* fp = fopen(ucsv, readdat);
- 	FILE* fpt = fopen("../data/tempuser.csv", appenddat);
+	FILE* fp = fopen(UCSV, READDAT);
+ 	FILE* fpt = fopen("../data/tempuser.csv", APPENDDAT);
  	
- 	char filename[25]=ucsv;
+ 	char filename[25]=UCSV;
 	char temp_filename[25]="../data/tempuser.csv";
  	
     	if (fp==NULL || fpt==NULL) 
